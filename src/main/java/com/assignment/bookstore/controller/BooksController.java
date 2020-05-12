@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -23,13 +22,13 @@ public class BooksController {
     private EsService esService;
 
     @PostMapping
-    public BookResponseDto createBook(@Valid @RequestBody BookRequestDto bookRequestDto) throws IOException {
+    public BookResponseDto createBook(@Valid @RequestBody BookRequestDto bookRequestDto) {
         BookResponseDto bookResponseDto = booksService.createBook(bookRequestDto);
         return bookResponseDto;
     }
 
     @GetMapping("/search")
-    public List<Book> searchBook(@RequestParam String query) throws IOException {
+    public List<Book> searchBook(@RequestParam String query) {
         return esService.searchBook(query);
     }
 

@@ -2,10 +2,8 @@ package com.assignment.bookstore.controller;
 
 import com.assignment.bookstore.dto.request.OrderRequestDto;
 import com.assignment.bookstore.dto.response.OrderResponseDto;
-import com.assignment.bookstore.exception.BadRequestException;
 import com.assignment.bookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +19,7 @@ public class OrdersController {
     private OrderService orderService;
 
     @PostMapping
-    @Transactional(rollbackFor = Exception.class)
-    public OrderResponseDto createOrder(@Valid @RequestBody OrderRequestDto orderRequestDto) throws BadRequestException {
+    public OrderResponseDto createOrder(@Valid @RequestBody OrderRequestDto orderRequestDto) {
         OrderResponseDto orderResponseDto = orderService.createOrder(orderRequestDto);
         return orderResponseDto;
     }

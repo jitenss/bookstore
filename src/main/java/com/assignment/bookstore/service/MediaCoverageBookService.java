@@ -34,7 +34,7 @@ public class MediaCoverageBookService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MediaCoverageBookService.class);
 
-    public List<MediaCoverageBook> getAndStoreMediaCoverageBooks() throws IOException {
+    public List<MediaCoverageBook> getAndStoreMediaCoverageBooks() {
         String url = UriComponentsBuilder.fromHttpUrl(mediaCoverageUrl).toUriString();
         ResponseEntity<MediaCoverageBook[]> responseEntity = restTemplate.getForEntity(url, MediaCoverageBook[].class);
         MediaCoverageBook[] mediaCoverageBooks = responseEntity.getBody();
@@ -47,7 +47,7 @@ public class MediaCoverageBookService {
         return mediaCoverageBooksList;
     }
 
-    public List<String> getMediaCoverageBooksTitles(String isbn) throws BadRequestException, IOException {
+    public List<String> getMediaCoverageBooksTitles(String isbn) {
         Book book = booksService.findByIsbn(isbn);
         if(book==null) {
             LOGGER.info("Book with does not exist in the database: {}", isbn);

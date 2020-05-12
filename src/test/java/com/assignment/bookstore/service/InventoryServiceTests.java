@@ -1,7 +1,6 @@
 package com.assignment.bookstore.service;
 
 import com.assignment.bookstore.entity.Inventory;
-import com.assignment.bookstore.exception.BadRequestException;
 import com.assignment.bookstore.repository.InventoryRepository;
 import com.assignment.bookstore.utilities.TestConstants;
 import com.assignment.bookstore.utilities.TestEntities;

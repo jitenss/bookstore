@@ -8,7 +8,6 @@ import com.assignment.bookstore.service.BooksService;
 import com.assignment.bookstore.utilities.TestConstants;
 import com.assignment.bookstore.utilities.TestEntities;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class BooksControllerTests {
     BooksController booksController;
 
     @Test
-    public void createBookTests() throws IOException {
+    public void createBookTests() {
         BookRequestDto bookRequestDto = TestEntities.getBookRequestDto();
         BookResponseDto bookResponseDto = TestEntities.getBookResponseDto();
         Mockito.when(booksService.createBook(Mockito.any())).thenReturn(bookResponseDto);
@@ -42,7 +40,7 @@ public class BooksControllerTests {
     }
 
     @Test
-    public void searchBookTests() throws IOException {
+    public void searchBookTests() {
         String query = TestConstants.QUERY;
         List<Book> books = new ArrayList<>();
         Mockito.when(esService.searchBook(query)).thenReturn(books);

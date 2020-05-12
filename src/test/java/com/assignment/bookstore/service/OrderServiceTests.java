@@ -44,7 +44,7 @@ public class OrderServiceTests {
     OrderService orderService;
 
     @Test
-    public void createOrderTests() throws BadRequestException {
+    public void createOrderTests() {
         OrderRequestDto orderRequestDto = TestEntities.getOrderRequestDto();
         orderRequestDto.setQuantity(TestConstants.QUANTITY);
         OrderResponseDto orderResponseDto = TestEntities.getOrderResponseDto();

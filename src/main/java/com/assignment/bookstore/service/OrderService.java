@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -37,7 +38,8 @@ public class OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
-    public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) throws BadRequestException {
+    @Transactional(rollbackFor = Exception.class)
+    public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
 
         Order order = converters.convertOrderRequestDtoToOrder(orderRequestDto);
 
@@ -55,8 +57,8 @@ public class OrderService {
         }
 
         if(order.getQuantity() > inventoryQuantity){
-            LOGGER.error("Inventory not present for book id {}", order.getBookId());
-            throw new BadRequestException(inventoryQuantity + " books available in the inventory");
+            LOGGER.error("Inventory exceeded for book id {}", order.getBookId());
+            throw new BadRequestException(inventoryQuantity + " books available in the inventory. Quantity expected exceeded");
         }
 
         Book book = booksService.findBookById(order.getId());

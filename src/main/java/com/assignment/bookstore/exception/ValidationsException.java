@@ -13,15 +13,17 @@ import java.util.Map;
 @RestControllerAdvice
 public class ValidationsException {
 
+    private int code;
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
+        errors.put("status", Integer.toString(HttpStatus.BAD_REQUEST.value()));
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
-            errors.put("status", Integer.toString(HttpStatus.BAD_REQUEST.value()));
         });
         return errors;
     }

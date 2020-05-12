@@ -2,7 +2,6 @@ package com.assignment.bookstore.controller;
 
 import com.assignment.bookstore.dto.request.OrderRequestDto;
 import com.assignment.bookstore.dto.response.OrderResponseDto;
-import com.assignment.bookstore.entity.Order;
 import com.assignment.bookstore.exception.BadRequestException;
 import com.assignment.bookstore.service.OrderService;
 import com.assignment.bookstore.utilities.TestEntities;

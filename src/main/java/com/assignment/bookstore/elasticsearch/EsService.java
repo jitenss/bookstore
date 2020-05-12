@@ -2,9 +2,11 @@ package com.assignment.bookstore.elasticsearch;
 
 import com.assignment.bookstore.entity.Book;
 import com.assignment.bookstore.entity.MediaCoverageBook;
+import com.assignment.bookstore.exception.ElasticSearchException;
 import com.assignment.bookstore.utilities.Constants;
 import com.google.gson.Gson;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -35,23 +37,30 @@ public class EsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EsService.class);
 
-    public void createBookIndex(Book book) throws IOException {
+    public void createBookIndex(Book book) {
         IndexRequest indexRequest = new IndexRequest(Constants.BOOKS_INDEX);
         indexRequest.source(gson.toJson(book), XContentType.JSON);
         indexRequest.id(book.getId().toString());
-        client.index(indexRequest, RequestOptions.DEFAULT);
-        LOGGER.info("Created book index for id: {}", book.getId());
+        try {
+            client.index(indexRequest, RequestOptions.DEFAULT);
+        } catch (IOException ex){
+            throw new ElasticSearchException("Error while creating book index");
+        }
     }
 
-    public List<Book> searchBook(String query) throws IOException {
+    public List<Book> searchBook(String query) {
         query = query.toLowerCase();
         SearchRequest searchRequest = new SearchRequest(Constants.BOOKS_INDEX);
 
         QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(query, Constants.SEARCH_BOOKS_FIELDS).type(MatchQuery.Type.PHRASE_PREFIX);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
-
-        SearchResponse searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
+        SearchResponse searchResponse;
+        try {
+            searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
+        } catch (IOException ex){
+            throw new ElasticSearchException("Error while searching query in book index");
+        }
 
         SearchHit[] searchHits = searchResponse.getHits().getHits();
         List<Book> books = new ArrayList<>();
@@ -63,18 +72,23 @@ public class EsService {
         return books;
     }
 
-    public void createMediaCoverageIndex(List<MediaCoverageBook> mediaCoverageBooks) throws IOException {
+    public void createMediaCoverageIndex(List<MediaCoverageBook> mediaCoverageBooks) {
 
         for(MediaCoverageBook mediaCoverageBook:mediaCoverageBooks) {
             IndexRequest indexRequest = new IndexRequest(Constants.MEDIA_COVERAGE_BOOKS_INDEX);
             indexRequest.source(gson.toJson(mediaCoverageBook), XContentType.JSON);
             indexRequest.id(mediaCoverageBook.getId());
-            client.index(indexRequest, RequestOptions.DEFAULT);
+            try {
+                client.index(indexRequest, RequestOptions.DEFAULT);
+            } catch (IOException ex){
+                throw new ElasticSearchException("Error while creating media index");
+            }
+
         }
         LOGGER.info("Created media coverage index");
     }
 
-    public List<MediaCoverageBook> searchMediaCoverageBook(String query) throws IOException {
+    public List<MediaCoverageBook> searchMediaCoverageBook(String query) {
         query = query.toLowerCase();
         SearchRequest searchRequest = new SearchRequest(Constants.MEDIA_COVERAGE_BOOKS_INDEX);
 
@@ -82,7 +96,12 @@ public class EsService {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
 
-        SearchResponse searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
+        SearchResponse searchResponse;
+        try {
+            searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
+        } catch (IOException ex){
+            throw new ElasticSearchException("Error while searching query in media index");
+        }
 
         SearchHit[] searchHits = searchResponse.getHits().getHits();
         List<MediaCoverageBook> mediaCoverageBooks = new ArrayList<>();

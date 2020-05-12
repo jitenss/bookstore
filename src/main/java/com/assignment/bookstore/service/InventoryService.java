@@ -21,12 +21,6 @@ public class InventoryService {
     private InventoryRepository inventoryRepository;
 
     @Autowired
-    private BooksService booksService;
-
-    @Autowired
-    private Converters converters;
-
-    @Autowired
     private EntityManager entityManager;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
@@ -47,7 +41,7 @@ public class InventoryService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Inventory updateInventory(UUID id, int quantity) throws BadRequestException {
+    public Inventory updateInventory(UUID id, int quantity) {
         Inventory inventory= inventoryRepository.findInventoryById(id);
 
         if(inventory==null) {

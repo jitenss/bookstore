@@ -1,10 +1,8 @@
 package com.assignment.bookstore.controller;
 
 import com.assignment.bookstore.entity.MediaCoverageBook;
-import com.assignment.bookstore.exception.BadRequestException;
 import com.assignment.bookstore.service.MediaCoverageBookService;
 import com.assignment.bookstore.utilities.TestConstants;
-import com.assignment.bookstore.utilities.TestEntities;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +24,18 @@ public class MediaCoverageBookControllerTests {
     MediaCoverageBookController mediaCoverageBookController;
 
     @Test
-    public void getMediaCoverageBooksTest() throws IOException {
+    public void getMediaCoverageBooksTest() {
         List<MediaCoverageBook> mediaCoverageBooks= new ArrayList<>();
         Mockito.when(mediaCoverageBookService.getAndStoreMediaCoverageBooks()).thenReturn(mediaCoverageBooks);
-        List<MediaCoverageBook> answer = mediaCoverageBookController.getMediaCoverageBooks();
+        List<MediaCoverageBook> answer = mediaCoverageBookController.mediaCoverageBooks();
         Assert.assertEquals(mediaCoverageBooks, answer);
     }
 
     @Test
-    public void getMediaCoverageTitlesTest() throws BadRequestException, IOException {
+    public void getMediaCoverageTitlesTest() {
         List<String> titles = new ArrayList<>();
         Mockito.when(mediaCoverageBookService.getMediaCoverageBooksTitles(TestConstants.ISBN)).thenReturn(titles);
-        List<String> result = mediaCoverageBookController.getMediaCoverageTitles(TestConstants.ISBN);
+        List<String> result = mediaCoverageBookController.mediaCoverageTitles(TestConstants.ISBN);
         Assert.assertEquals(titles,result);
     }
 }

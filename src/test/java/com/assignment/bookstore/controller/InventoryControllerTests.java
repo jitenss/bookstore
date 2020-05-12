@@ -1,7 +1,6 @@
 package com.assignment.bookstore.controller;
 
 import com.assignment.bookstore.entity.Inventory;
-import com.assignment.bookstore.exception.BadRequestException;
 import com.assignment.bookstore.service.InventoryService;
 import com.assignment.bookstore.utilities.TestConstants;
 import com.assignment.bookstore.utilities.TestEntities;
@@ -23,7 +22,7 @@ public class InventoryControllerTests {
     InventoryController inventoryController;
 
     @Test
-    public void updateInventoryTests() throws BadRequestException {
+    public void updateInventoryTests() {
         Inventory updatedInventory = TestEntities.getInventory();
         Mockito.when(inventoryService.updateInventory(TestConstants.ID, TestConstants.QUANTITY)).thenReturn(updatedInventory);
         Inventory answer = inventoryController.updateInventory(TestConstants.ID.toString(), TestConstants.QUANTITY);

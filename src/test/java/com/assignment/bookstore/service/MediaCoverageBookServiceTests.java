@@ -20,7 +20,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class MediaCoverageBookServiceTests {
     MediaCoverageBookService mediaCoverageBookService;
 
     @Test
-    public void getAndStoreMediaCoverageBooksTests() throws IOException {
+    public void getAndStoreMediaCoverageBooksTests()  {
         String url = UriComponentsBuilder.fromHttpUrl("https://jsonplaceholder.typicode.com/posts").toUriString();
         MediaCoverageBook[] mediaCoverageBooks = new MediaCoverageBook[]{};
         ResponseEntity<MediaCoverageBook[]> responseEntity = new ResponseEntity<MediaCoverageBook[]>(mediaCoverageBooks, HttpStatus.OK);
@@ -65,7 +64,7 @@ public class MediaCoverageBookServiceTests {
     }
 
     @Test
-    public void getMediaCoverageBooksTitlesTest() throws IOException, BadRequestException {
+    public void getMediaCoverageBooksTitlesTest() {
         Book book = TestEntities.getBook();
         List<MediaCoverageBook> mediaCoverageBooks = new ArrayList<>();
         mediaCoverageBooks.add(TestEntities.getMediaCoverageBook());

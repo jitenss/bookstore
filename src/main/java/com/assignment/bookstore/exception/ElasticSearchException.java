@@ -3,10 +3,10 @@ package com.assignment.bookstore.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadRequestException extends RuntimeException {
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+public class ElasticSearchException extends RuntimeException{
 
-    public BadRequestException(String message){
+    public ElasticSearchException(String message) {
         super(message);
     }
 }

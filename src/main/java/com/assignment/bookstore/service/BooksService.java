@@ -33,7 +33,7 @@ public class BooksService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BooksService.class);
 
     @Transactional(rollbackFor = Exception.class)
-    public BookResponseDto createBook(BookRequestDto bookRequestDto) throws IOException {
+    public BookResponseDto createBook(BookRequestDto bookRequestDto) {
 
         Book book = converters.convertBookRequestDtoToBook(bookRequestDto);
 

@@ -1,7 +1,6 @@
 package com.assignment.bookstore.controller;
 
 import com.assignment.bookstore.entity.MediaCoverageBook;
-import com.assignment.bookstore.exception.BadRequestException;
 import com.assignment.bookstore.service.MediaCoverageBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,12 +18,12 @@ public class MediaCoverageBookController {
     private MediaCoverageBookService mediaCoverageBookService;
 
     @GetMapping
-    public List<MediaCoverageBook> getMediaCoverageBooks() throws IOException {
+    public List<MediaCoverageBook> mediaCoverageBooks() {
         return mediaCoverageBookService.getAndStoreMediaCoverageBooks();
     }
 
     @GetMapping("/search")
-    public List<String> getMediaCoverageTitles(@RequestParam String isbn) throws BadRequestException, IOException {
+    public List<String> mediaCoverageTitles(@RequestParam String isbn) {
         return mediaCoverageBookService.getMediaCoverageBooksTitles(isbn);
     }
 }
