@@ -5,11 +5,15 @@ Bookstore application is built using Spring Boot framework.
 - Junit and Mockito for unit tests
 
 **High Level Design**
-
+https://app.lucidchart.com/documents/view/356c9478-8ae0-40ff-972c-a57068379d37/0_0
 
 **Steps for Running locally**
 1. $ mvn clean install
 2. $ mvn spring-boot:run
+
+**Steps for running Docker image**
+1. docker pull jitenss/bookstore
+2. docker run -p 8080:8080 jitenss/bookstore
 
 All APIs can be fetched on http://localhost:8080/
 
