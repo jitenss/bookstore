@@ -29,7 +29,7 @@ All APIs can be fetched on http://localhost:8080/
     - Used to fetch media coverage of books and stores the results in elasticsearch.
 5. GET /media_coverage_books/search
     - Used to search a book based on ISBN given in the media coverage search.
-6. POST /inventory/{id}
+6. PUT /inventory/{id}
     - Used to update the inventory of the book based on the id given.
 
 Curls for APIs can be imported from the given Postman Collection: https://www.getpostman.com/collections/77fb63b3e0595197461d
