@@ -12,7 +12,7 @@ https://app.lucidchart.com/documents/view/356c9478-8ae0-40ff-972c-a57068379d37/0
 2. $ mvn spring-boot:run
 
 **Steps for running Docker image**
-1. docker pull jitenss/bookstore
+1. docker pull jitenss/bookstore:latest
 2. docker run -p 8080:8080 jitenss/bookstore
 
 All APIs can be fetched on http://localhost:8080/
