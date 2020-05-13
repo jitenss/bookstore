@@ -15,8 +15,6 @@ https://app.lucidchart.com/documents/view/356c9478-8ae0-40ff-972c-a57068379d37/0
 1. docker pull jitenss/demo-bookstore:latest
 2. docker run -p 8080:8080 jitenss/demo-bookstore
 
-Application will run on http://localhost:8080/
-
 **APIs**
 
 1. POST /books
