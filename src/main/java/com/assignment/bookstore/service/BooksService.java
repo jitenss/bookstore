@@ -60,7 +60,7 @@ public class BooksService {
         if(existingBook==null){
             existingBook = findByTitleAndAuthor(book.getTitle(), book.getAuthor());
         }
-        LOGGER.info("Book exists with id: {}", book.getId());
+        LOGGER.info("Book already exists");
         return existingBook;
     }
 

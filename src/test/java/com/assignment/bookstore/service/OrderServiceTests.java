@@ -37,9 +37,6 @@ public class OrderServiceTests {
     @Mock
     OrderRepository orderRepository;
 
-    @Mock
-    EntityManager entityManager;
-
     @InjectMocks
     OrderService orderService;
 
@@ -57,7 +54,6 @@ public class OrderServiceTests {
 
         Mockito.when(converters.convertOrderRequestDtoToOrder(orderRequestDto)).thenReturn(order);
         Mockito.when(inventoryService.findInventoryByBookId(order.getBookId())).thenReturn(inventory);
-        Mockito.doNothing().when(entityManager).lock(inventory, LockModeType.PESSIMISTIC_WRITE);
         Mockito.when(booksService.findBookById(order.getId())).thenReturn(book);
         Mockito.when(inventoryService.updateInventory(inventory)).thenReturn(updatedInventory);
         Mockito.when(orderRepository.save(order)).thenReturn(updatedOrder);
@@ -90,7 +86,6 @@ public class OrderServiceTests {
 
         Mockito.when(converters.convertOrderRequestDtoToOrder(orderRequestDto)).thenReturn(order);
         Mockito.when(inventoryService.findInventoryByBookId(order.getBookId())).thenReturn(inventory);
-        Mockito.doNothing().when(entityManager).lock(inventory, LockModeType.PESSIMISTIC_WRITE);
 
         Assertions.assertThrows(BadRequestException.class, () -> orderService.createOrder(orderRequestDto));
     }

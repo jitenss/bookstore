@@ -21,9 +21,6 @@ public class InventoryServiceTests {
     @Mock
     InventoryRepository inventoryRepository;
 
-    @Mock
-    EntityManager entityManager;
-
     @InjectMocks
     InventoryService inventoryService;
 
@@ -49,7 +46,6 @@ public class InventoryServiceTests {
         Inventory inventory = TestEntities.getInventory();
         Inventory updatedInventory = TestEntities.getInventory();
         Mockito.when(inventoryRepository.findInventoryById(TestConstants.ID)).thenReturn(inventory);
-        Mockito.doNothing().when(entityManager).lock(inventory, LockModeType.PESSIMISTIC_WRITE);
         Mockito.when(inventoryRepository.save(inventory)).thenReturn(updatedInventory);
         Inventory answer = inventoryService.updateInventory(inventory);
         Assert.assertEquals(updatedInventory, answer);

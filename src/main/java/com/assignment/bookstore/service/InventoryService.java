@@ -20,9 +20,6 @@ public class InventoryService {
     @Autowired
     private InventoryRepository inventoryRepository;
 
-    @Autowired
-    private EntityManager entityManager;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
 
     public Inventory addInventory(UUID bookId, int quantity){
@@ -40,6 +37,7 @@ public class InventoryService {
         return inventoryRepository.findByBookId(bookId);
     }
 
+    /*Applied pessimistic lock on the inventory in the inventory repository*/
     @Transactional(rollbackFor = Exception.class)
     public Inventory updateInventory(UUID id, int quantity) {
         Inventory inventory= inventoryRepository.findInventoryById(id);
@@ -48,8 +46,6 @@ public class InventoryService {
             LOGGER.info("Invalid inventory id for update: {}", id);
             throw new BadRequestException("Invalid Inventory Id");
         }
-
-        entityManager.lock(inventory, LockModeType.PESSIMISTIC_WRITE);
         inventory.setQuantity(quantity);
         inventoryRepository.save(inventory);
 

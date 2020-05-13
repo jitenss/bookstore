@@ -33,11 +33,9 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
-    private EntityManager entityManager;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
+    /*Applied pessimistic lock on the inventory in the inventory repository*/
     @Transactional(rollbackFor = Exception.class)
     public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
 
@@ -48,7 +46,6 @@ public class OrderService {
             LOGGER.error("Inventory not present with book id {}", order.getBookId());
             throw new BadRequestException("No inventory with given book id in database");
         }
-        entityManager.lock(inventory, LockModeType.PESSIMISTIC_WRITE);
 
         int inventoryQuantity = inventory.getQuantity();
         if(inventoryQuantity==0){

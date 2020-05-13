@@ -2,7 +2,7 @@
 Bookstore application is built using Spring Boot framework. 
 - PostgreSql is used for storing data
 - Elasticsearch is used for searching of data.
-- Junit and Mockito for unit tests
+- Junit and Mockito is used for unit tests
 
 **High Level Design**
 https://app.lucidchart.com/documents/view/356c9478-8ae0-40ff-972c-a57068379d37/0_0
@@ -12,10 +12,10 @@ https://app.lucidchart.com/documents/view/356c9478-8ae0-40ff-972c-a57068379d37/0
 2. $ mvn spring-boot:run
 
 **Steps for running Docker image**
-1. docker pull jitenss/bookstore
-2. docker run -p 8080:8080 jitenss/bookstore
+1. docker pull jitenss/demo-bookstore:latest
+2. docker run -p 8080:8080 jitenss/demo-bookstore
 
-All APIs can be fetched on http://localhost:8080/
+Application will run on http://localhost:8080/
 
 **APIs**
 
@@ -30,7 +30,7 @@ All APIs can be fetched on http://localhost:8080/
 5. GET /media_coverage_books/search
     - Used to search a book based on ISBN given in the media coverage search.
 6. PUT /inventory/{id}
-    - Used to update the inventory of the book based on the id given.
+    - Used to update the quantity of the book based on the id given.
 
 Curls for APIs can be imported from the given Postman Collection: https://www.getpostman.com/collections/77fb63b3e0595197461d
 
